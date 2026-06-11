@@ -10,16 +10,16 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #080D14;
-      --surface: #0E1624;
-      --border: #1C2C42;
-      --blue: #4A9EE8;
-      --blue-dim: rgba(74, 158, 232, 0.12);
-      --blue-mid: rgba(74, 158, 232, 0.25);
-      --text: #EEF4FF;
-      --text-dim: #6B8BAD;
-      --success: #4CAF7D;
-      --error: #E05C5C;
+      --bg: #F4F7FA;          /* Latar belakang halaman yang terang */
+      --surface: #FFFFFF;     /* Latar belakang card/box putih bersih */
+      --border: #E2E8F0;      /* Garis pembatas yang soft */
+      --blue: #1A73E8;        /* Warna biru utama yang lebih kontras untuk light mode */
+      --blue-dim: #E8F0FE;    /* Background chip/kandidat saat aktif/di-hover */
+      --blue-mid: rgba(26, 123, 232, 0.15);
+      --text: #1E293B;        /* Warna teks utama yang gelap/jelas */
+      --text-dim: #64748B;    /* Warna teks sekunder/keterangan */
+      --success: #10B981;     /* Warna sukses/berhasil */
+      --error: #EF4444;       /* Warna error/gagal */
     }
 
     html, body {
@@ -683,9 +683,9 @@ const CONFIG = {
   CANDIDATES: [
     { name: "Calon 1", detail: "Muslih Shobir" },
     { name: "Calon 2", detail: "Alim Nur" },
-    { name: "Calon 3", detail: "Syauqi" },
+    { name: "Calon 3", detail: "Fathi Syauqi" },
   ],
-  CLASSES: ["PBA A", "PBA B", "KPI A", "KPI B", "MPI", "PAI"],
+  CLASSES: ["PBA A", "PBA B", "KPI", "MPI", "PAI"],
   SEMESTERS: ["1", "2", "3", "4", "5", "6", "7", "8"],
 };
 // ════════════════════════════════════════
