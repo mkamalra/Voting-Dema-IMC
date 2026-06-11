@@ -188,10 +188,15 @@
       user-select: none;
       min-height: 260px;
     }
-    .candidate:hover { background: var(--blue-dim); }
+    /* Paksa background tetap putih/surface meskipun mouse hover */
+    .candidate:hover { 
+      background: var(--surface) !important; 
+    }
+    
+    /* Paksa background tetap putih/surface dan hilangkan garis biru saat fokus keyboard */
     .candidate.focused {
-      background: var(--surface); /* Tetap gunakan warna surface normal */
-      outline: none;              /* Hapus garis biru saat tombol keyboard ditekan */
+      background: var(--surface) !important;
+      outline: none !important;
       z-index: 1;
     }
 
