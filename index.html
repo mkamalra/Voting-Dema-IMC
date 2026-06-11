@@ -10,16 +10,15 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #F4F7FA;          /* Latar belakang halaman yang terang */
-      --surface: #FFFFFF;     /* Latar belakang card/box putih bersih */
-      --border: #E2E8F0;      /* Garis pembatas yang soft */
-      --blue: #1A73E8;        /* Warna biru utama yang lebih kontras untuk light mode */
-      --blue-dim: #E8F0FE;    /* Background chip/kandidat saat aktif/di-hover */
-      --blue-mid: rgba(26, 123, 232, 0.15);
-      --text: #1E293B;        /* Warna teks utama yang gelap/jelas */
-      --text-dim: #64748B;    /* Warna teks sekunder/keterangan */
-      --success: #10B981;     /* Warna sukses/berhasil */
-      --error: #EF4444;       /* Warna error/gagal */
+      --bg: #F4F7FA;
+      --surface: #FFFFFF;
+      --border: #E2E8F0;
+      --blue: #1A73E8;
+      --blue-dim: #E8F0FE;
+      --text: #1E293B;
+      --text-dim: #64748B;
+      --success: #10B981;
+      --error: #EF4444;
     }
 
     html, body {
@@ -30,13 +29,12 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ── SCREEN SYSTEM ── */
     .screen { display: none; min-height: 100vh; }
     .screen.active { display: flex; }
 
-    /* ══════════════════════════════════
-       SCREEN 1: FORM
-    ══════════════════════════════════ */
+    /* ══════════════════════════════
+       SCREEN 1 — FORM
+    ══════════════════════════════ */
     #screen-form {
       flex-direction: column;
       align-items: center;
@@ -46,7 +44,13 @@
 
     .form-header {
       text-align: center;
-      margin-bottom: 2rem;
+      margin-bottom: 1.75rem;
+    }
+    .form-header img {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      margin-bottom: 0.9rem;
     }
     .form-header .label {
       font-size: 0.7rem;
@@ -54,14 +58,14 @@
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--blue);
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.4rem;
     }
     .form-header h1 {
       font-size: clamp(1.4rem, 4vw, 2rem);
       font-weight: 700;
     }
     .form-header p {
-      margin-top: 0.4rem;
+      margin-top: 0.35rem;
       font-size: 0.85rem;
       color: var(--text-dim);
     }
@@ -73,6 +77,7 @@
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 1.75rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
     }
 
     .field { margin-bottom: 1.4rem; }
@@ -86,12 +91,7 @@
       margin-bottom: 0.6rem;
     }
 
-    /* ── CHIP GRID (replaces dropdowns) ── */
-    .chip-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
+    .chip-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; }
     .chip {
       padding: 0.45rem 0.9rem;
       background: var(--bg);
@@ -104,21 +104,21 @@
       cursor: pointer;
       transition: all 0.15s;
       user-select: none;
+      outline: none;
     }
-    .chip:hover { 
-      border-color: var(--border); /* Tetap gunakan warna border normal */
-      color: var(--text-dim);      /* Tetap gunakan warna teks biasa */ 
-    }
+    .chip:hover { border-color: var(--border); color: var(--text-dim); }
     .chip.active {
-      background: var(--bg);       /* Hilangkan warna background biru muda */
-      border-color: var(--blue);   /* Jika ingin tandanya tetap ada, biarkan biru. Atau ubah ke var(--border) jika ingin benar-benar polos */
-      color: var(--blue);          /* Warna teks saat dipilih */
+      background: var(--bg);
+      border-color: var(--blue);
+      color: var(--blue);
     }
+    /* Kelas chips hidden until semester chosen */
+    #field-kelas { display: none; }
 
     .btn-primary {
       width: 100%;
       background: var(--blue);
-      color: #FFFFFF; /* DIUBAH JADI PUTIH */
+      color: #fff;
       border: none;
       border-radius: 8px;
       font-family: 'Inter', sans-serif;
@@ -141,14 +141,25 @@
       min-height: 1.2em;
     }
 
-    /* ══════════════════════════════════
-       SCREEN 2: VOTING
-    ══════════════════════════════════ */
-    #screen-vote { flex-direction: column; }
+    /* ══════════════════════════════
+       SCREEN 2 — VOTING
+    ══════════════════════════════ */
+    #screen-vote {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg);
+      padding: 1.5rem;
+      gap: 1.25rem;
+    }
 
     .vote-header {
-      padding: 0.9rem 1.5rem;
-      border-bottom: 1px solid var(--border);
+      width: 100%;
+      max-width: 440px;
+      padding: 0.75rem 1.25rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -158,95 +169,121 @@
     .vote-header .meta span { color: var(--text); font-weight: 600; }
     .vote-header .hint { font-size: 0.7rem; color: var(--text-dim); }
 
-    .vote-instruction {
-      text-align: center;
-      padding: 1rem 1rem 0.6rem;
+    /* Foto + nama calon di atas tombol */
+    .candidates-info {
+      width: 100%;
+      max-width: 440px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
       flex-shrink: 0;
     }
-    .vote-instruction p { font-size: 0.8rem; color: var(--text-dim); }
+    .candidate-info-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .candidate-photo {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      display: block;
+      background: var(--bg);
+    }
+    .candidate-info-card .cand-text {
+      padding: 0.6rem 0.5rem 0.7rem;
+    }
+    .candidate-info-card .cand-name {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.3;
+    }
+    .candidate-info-card .cand-num {
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: var(--blue);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 0.2rem;
+    }
+
+    /* Tombol voting */
+    .vote-instruction {
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      text-align: center;
+    }
     .vote-instruction strong { color: var(--blue); }
 
     .candidates-area {
-      flex: 1;
+      width: 100%;
+      max-width: 440px;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--border);
-      min-height: 0;
+      gap: 0.75rem;
+      flex-shrink: 0;
     }
 
     .candidate {
       background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 1.5rem 1rem;
-      cursor: pointer;
-      transition: background 0.12s;
+      padding: 1.75rem 1rem 1.5rem;
       position: relative;
       user-select: none;
-      min-height: 260px;
+      cursor: default;
+      -webkit-tap-highlight-color: transparent;
+      min-height: 130px;
     }
-    /* Paksa background tetap putih/surface meskipun mouse hover */
-    .candidate:hover { 
-      background: var(--surface) !important; 
-    }
-    
-    /* Paksa background tetap putih/surface dan hilangkan garis biru saat fokus keyboard */
+    /* Zero hover/focus feedback — intentional */
+    .candidate:hover,
+    .candidate:focus,
+    .candidate:active,
     .candidate.focused {
       background: var(--surface) !important;
       outline: none !important;
-      z-index: 1;
+      border-color: var(--border) !important;
     }
 
     .candidate .key-hint {
       position: absolute;
-      top: 1rem;
+      top: 0.7rem;
       display: flex;
       align-items: center;
-      gap: 0.3rem;
+      gap: 0.25rem;
     }
     .key-badge {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 22px;
-      height: 22px;
+      width: 20px; height: 20px;
       border: 1px solid var(--border);
       border-radius: 4px;
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       color: var(--text-dim);
     }
 
     .candidate .number {
-      font-size: clamp(4rem, 10vw, 7rem);
+      font-size: clamp(3rem, 8vw, 5.5rem);
       font-weight: 900;
       line-height: 1;
       color: var(--blue);
       letter-spacing: -0.03em;
-      transition: transform 0.1s;
-    }
-    .candidate:hover .number,
-    .candidate.focused .number { transform: scale(1); }
-
-    .candidate .name {
-      font-size: clamp(0.75rem, 1.5vw, 0.9rem);
-      font-weight: 600;
-      text-align: center;
-      margin-top: 0.6rem;
-      color: var(--text);
-    }
-    .candidate .detail {
-      font-size: 0.65rem;
-      color: var(--text-dim);
-      margin-top: 0.2rem;
-      text-align: center;
     }
 
-    /* ══════════════════════════════════
-       SCREEN 3: SUBMITTING
-    ══════════════════════════════════ */
+    /* ══════════════════════════════
+       SCREEN 3 — SUBMITTING
+    ══════════════════════════════ */
     #screen-submitting {
       flex-direction: column;
       align-items: center;
@@ -263,9 +300,9 @@
     @keyframes spin { to { transform: rotate(360deg); } }
     #screen-submitting p { font-size: 0.9rem; color: var(--text-dim); }
 
-    /* ══════════════════════════════════
-       SCREEN 4: DONE
-    ══════════════════════════════════ */
+    /* ══════════════════════════════
+       SCREEN 4 — DONE
+    ══════════════════════════════ */
     #screen-done {
       flex-direction: column;
       align-items: center;
@@ -277,8 +314,8 @@
     .done-icon {
       width: 64px; height: 64px;
       border-radius: 50%;
-      background: rgba(76, 175, 125, 0.12);
-      border: 1px solid rgba(76, 175, 125, 0.3);
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.3);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -291,7 +328,7 @@
       margin-top: 1.25rem;
       padding: 0.8rem 2.8rem;
       background: var(--blue);
-      color: #FFFFFF; /* DIUBAH JADI PUTIH */
+      color: #fff;
       border: none;
       border-radius: 8px;
       font-family: 'Inter', sans-serif;
@@ -303,9 +340,9 @@
     }
     #btn-next:hover { opacity: 0.85; }
 
-    /* ══════════════════════════════════
-       SCREEN 5: ERROR
-    ══════════════════════════════════ */
+    /* ══════════════════════════════
+       SCREEN 5 — ERROR
+    ══════════════════════════════ */
     #screen-error {
       flex-direction: column;
       align-items: center;
@@ -329,9 +366,9 @@
       cursor: pointer;
     }
 
-    /* ══════════════════════════════════
+    /* ══════════════════════════════
        ADMIN LOGIN
-    ══════════════════════════════════ */
+    ══════════════════════════════ */
     #admin-login {
       display: none;
       min-height: 100vh;
@@ -343,12 +380,9 @@
     }
     #admin-login.active { display: flex; }
     #admin-login .label {
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--blue);
-      margin-bottom: 0.5rem;
+      font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--blue); margin-bottom: 0.5rem;
     }
     #admin-login h2 { font-size: 1.3rem; font-weight: 700; margin-bottom: 1.75rem; }
     #admin-pass {
@@ -366,24 +400,19 @@
     }
     #admin-pass:focus { outline: none; border-color: var(--blue); }
     #btn-admin-login {
-      width: 280px;
-      padding: 0.75rem;
-      background: var(--blue);
-      color: #080D14;
-      border: none;
-      border-radius: 8px;
+      width: 280px; padding: 0.75rem;
+      background: var(--blue); color: #fff;
+      border: none; border-radius: 8px;
       font-family: 'Inter', sans-serif;
-      font-weight: 700;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: opacity 0.2s;
+      font-weight: 700; font-size: 0.9rem;
+      cursor: pointer; transition: opacity 0.2s;
     }
     #btn-admin-login:hover { opacity: 0.88; }
     #admin-login-error { font-size: 0.8rem; color: var(--error); margin-top: 0.6rem; min-height: 1.2em; }
 
-    /* ══════════════════════════════════
+    /* ══════════════════════════════
        ADMIN DASHBOARD
-    ══════════════════════════════════ */
+    ══════════════════════════════ */
     #admin-page {
       display: none;
       min-height: 100vh;
@@ -397,206 +426,159 @@
 
     .admin-header { margin-bottom: 1.75rem; }
     .admin-header .label {
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--blue);
-      margin-bottom: 0.4rem;
+      font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--blue); margin-bottom: 0.4rem;
     }
     .admin-header h1 { font-size: 1.5rem; font-weight: 700; }
     .admin-header p { font-size: 0.8rem; color: var(--text-dim); margin-top: 0.3rem; }
 
-    .admin-refresh {
-      display: flex;
-      gap: 0.8rem;
-      align-items: center;
-      margin-bottom: 1.5rem;
-    }
+    .admin-refresh { display: flex; gap: 0.8rem; align-items: center; margin-bottom: 1.5rem; }
     #btn-refresh {
       padding: 0.5rem 1.1rem;
-      background: transparent;
-      color: var(--blue);
-      border: 1px solid var(--blue);
-      border-radius: 7px;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.8rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.15s;
+      background: transparent; color: var(--blue);
+      border: 1px solid var(--blue); border-radius: 7px;
+      font-family: 'Inter', sans-serif; font-size: 0.8rem; font-weight: 600;
+      cursor: pointer; transition: background 0.15s;
     }
     #btn-refresh:hover { background: var(--blue-dim); }
     .last-updated { font-size: 0.75rem; color: var(--text-dim); }
 
     .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--border);
-      border-radius: 10px;
-      overflow: hidden;
-      margin-bottom: 1.5rem;
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1px; background: var(--border);
+      border-radius: 10px; overflow: hidden; margin-bottom: 1.5rem;
     }
-    .stat-card {
-      background: var(--surface);
-      padding: 1.4rem;
-      text-align: center;
-    }
-    .stat-card .num {
-      font-size: 2.4rem;
-      font-weight: 900;
-      color: var(--blue);
-      line-height: 1;
-    }
-    .stat-card .lbl {
-      font-size: 0.72rem;
-      color: var(--text-dim);
-      margin-top: 0.3rem;
-    }
+    .stat-card { background: var(--surface); padding: 1.4rem; text-align: center; }
+    .stat-card .num { font-size: 2.4rem; font-weight: 900; color: var(--blue); line-height: 1; }
+    .stat-card .lbl { font-size: 0.72rem; color: var(--text-dim); margin-top: 0.3rem; }
 
     .bar-section {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 1.5rem;
-      margin-bottom: 1.5rem;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1.5rem; margin-bottom: 1.5rem;
     }
     .bar-section h3 {
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-      margin-bottom: 1.2rem;
+      font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--text-dim); margin-bottom: 1.2rem;
     }
-    .bar-row {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 1rem;
-    }
+    .bar-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
     .bar-row:last-child { margin-bottom: 0; }
-    .bar-label { width: 80px; font-size: 0.8rem; font-weight: 600; flex-shrink: 0; }
-    .bar-track {
-      flex: 1;
-      height: 28px;
-      background: var(--bg);
-      border-radius: 4px;
-      overflow: hidden;
-    }
+    .bar-label { width: 100px; font-size: 0.8rem; font-weight: 600; flex-shrink: 0; }
+    .bar-track { flex: 1; height: 28px; background: var(--bg); border-radius: 4px; overflow: hidden; }
     .bar-fill {
-      height: 100%;
-      background: var(--blue);
-      border-radius: 4px;
-      transition: width 0.6s ease;
-      display: flex;
-      align-items: center;
-      padding-left: 0.5rem;
-      font-size: 0.7rem;
-      font-weight: 700;
-      color: #FFFFFF;
-      min-width: 0;
-      white-space: nowrap;
+      height: 100%; background: var(--blue); border-radius: 4px;
+      transition: width 0.6s ease; display: flex; align-items: center;
+      padding-left: 0.5rem; font-size: 0.7rem; font-weight: 700;
+      color: #fff; min-width: 0; white-space: nowrap;
     }
-    .bar-count {
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: var(--text-dim);
-      width: 30px;
-      text-align: right;
-      flex-shrink: 0;
-    }
+    .bar-count { font-size: 0.8rem; font-weight: 700; color: var(--text-dim); width: 30px; text-align: right; flex-shrink: 0; }
 
     .admin-note {
-      font-size: 0.75rem;
-      color: var(--text-dim);
-      line-height: 1.6;
-      border-top: 1px solid var(--border);
-      padding-top: 1rem;
+      font-size: 0.75rem; color: var(--text-dim);
+      line-height: 1.6; border-top: 1px solid var(--border); padding-top: 1rem;
     }
 
     @media (max-width: 500px) {
-      .candidate .number { font-size: 3rem; }
+      .candidate .number { font-size: 2.5rem; }
+      .candidate-photo { width: 52px; height: 52px; }
       .key-hint { display: none; }
       .stats-grid { grid-template-columns: 1fr; }
+      #screen-vote { padding: 1rem; gap: 0.85rem; }
     }
   </style>
 </head>
 <body>
 
-<!-- ══════════════════════════════════
-     SCREEN 1: FORM INPUT
-══════════════════════════════════ -->
+<!-- SCREEN 1: FORM -->
 <div id="screen-form" class="screen active">
   <div class="form-header">
+    <img
+      src="logo-DEMA.png"
+      alt="Logo DEMA"
+    />
     <div class="label">Pemilihan Ketua</div>
     <h1>DEMA IMC</h1>
-    <p>Pilih kelas dan semester untuk melanjutkan</p>
+    <p>Pilih semester dan kelas untuk melanjutkan</p>
   </div>
   <div class="form-card">
-    <div class="field">
-      <label>Kelas</label>
-      <div class="chip-grid" id="chip-kelas"></div>
-    </div>
-    <div class="field">
+    <div class="field" id="field-semester">
       <label>Semester</label>
       <div class="chip-grid" id="chip-semester"></div>
     </div>
-    <button class="btn-primary" id="btn-to-vote" onclick="goToVote()">Lanjutkan →</button>
+    <div class="field" id="field-kelas">
+      <label>Kelas / Prodi</label>
+      <div class="chip-grid" id="chip-kelas"></div>
+    </div>
+    <button class="btn-primary" onclick="goToVote()">Lanjutkan →</button>
     <div id="form-error"></div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════
-     SCREEN 2: VOTING
-══════════════════════════════════ -->
+<!-- SCREEN 2: VOTING -->
 <div id="screen-vote" class="screen">
   <div class="vote-header">
     <div class="meta">
-      Kelas: <span id="info-kelas">—</span> &nbsp;·&nbsp; Semester: <span id="info-semester">—</span>
+      Semester: <span id="info-semester">—</span> &nbsp;·&nbsp; Kelas: <span id="info-kelas">—</span>
     </div>
     <div class="hint">← Kiri &nbsp;·&nbsp; ↓ Tengah &nbsp;·&nbsp; → Kanan</div>
   </div>
-  <div class="vote-instruction">
-    <p>Tekan <strong>← ↓ →</strong> untuk langsung memilih</p>
+
+  <!-- Foto + nama calon -->
+  <div class="candidates-info">
+    <div class="candidate-info-card">
+      <img class="candidate-photo" id="photo1" src="" alt="Foto Calon 1" />
+      <div class="cand-text">
+        <div class="cand-num">Calon 1</div>
+        <div class="cand-name" id="cname1">—</div>
+      </div>
+    </div>
+    <div class="candidate-info-card">
+      <img class="candidate-photo" id="photo2" src="" alt="Foto Calon 2" />
+      <div class="cand-text">
+        <div class="cand-num">Calon 2</div>
+        <div class="cand-name" id="cname2">—</div>
+      </div>
+    </div>
+    <div class="candidate-info-card">
+      <img class="candidate-photo" id="photo3" src="" alt="Foto Calon 3" />
+      <div class="cand-text">
+        <div class="cand-num">Calon 3</div>
+        <div class="cand-name" id="cname3">—</div>
+      </div>
+    </div>
   </div>
+
+  <p class="vote-instruction">Tekan <strong>← ↓ →</strong> untuk langsung memilih</p>
+
+  <!-- Tombol voting -->
   <div class="candidates-area">
-    <div class="candidate" id="c1" onclick="submitCandidate(0)">
+    <div class="candidate" id="c1">
       <div class="key-hint"><span class="key-badge">←</span></div>
       <div class="number">1</div>
-      <div class="name" id="cname1">—</div>
-      <div class="detail" id="cdetail1">—</div>
     </div>
-    <div class="candidate" id="c2" onclick="submitCandidate(1)">
+    <div class="candidate" id="c2">
       <div class="key-hint"><span class="key-badge">↓</span></div>
       <div class="number">2</div>
-      <div class="name" id="cname2">—</div>
-      <div class="detail" id="cdetail2">—</div>
     </div>
-    <div class="candidate" id="c3" onclick="submitCandidate(2)">
+    <div class="candidate" id="c3">
       <div class="key-hint"><span class="key-badge">→</span></div>
       <div class="number">3</div>
-      <div class="name" id="cname3">—</div>
-      <div class="detail" id="cdetail3">—</div>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════
-     SCREEN 3: SUBMITTING
-══════════════════════════════════ -->
+<!-- SCREEN 3: SUBMITTING -->
 <div id="screen-submitting" class="screen">
   <div class="spinner"></div>
   <p>Menyimpan suara…</p>
 </div>
 
-<!-- ══════════════════════════════════
-     SCREEN 4: DONE
-══════════════════════════════════ -->
+<!-- SCREEN 4: DONE -->
 <div id="screen-done" class="screen">
   <div class="done-icon">
     <svg viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M6 15l6 6 12-12" stroke="#4CAF7D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M6 15l6 6 12-12" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   </div>
   <h2>Suara Tercatat</h2>
@@ -604,18 +586,14 @@
   <button id="btn-next" onclick="resetApp()">Pemilih Berikutnya</button>
 </div>
 
-<!-- ══════════════════════════════════
-     SCREEN 5: ERROR
-══════════════════════════════════ -->
+<!-- SCREEN 5: ERROR -->
 <div id="screen-error" class="screen">
   <h2>Gagal Menyimpan</h2>
   <p id="error-msg">Terjadi kesalahan. Pastikan koneksi internet tersambung dan coba lagi.</p>
   <button id="btn-retry" onclick="submitVote()">Coba Lagi</button>
 </div>
 
-<!-- ══════════════════════════════════
-     ADMIN LOGIN
-══════════════════════════════════ -->
+<!-- ADMIN LOGIN -->
 <div id="admin-login">
   <div class="label">Dashboard Panitia</div>
   <h2>Masuk sebagai Panitia</h2>
@@ -625,21 +603,17 @@
   <div id="admin-login-error"></div>
 </div>
 
-<!-- ══════════════════════════════════
-     ADMIN DASHBOARD
-══════════════════════════════════ -->
+<!-- ADMIN DASHBOARD -->
 <div id="admin-page">
   <div class="admin-header">
     <div class="label">Dashboard Panitia</div>
     <h1>Rekapitulasi Suara</h1>
     <p id="admin-total-label">Memuat data…</p>
   </div>
-
   <div class="admin-refresh">
     <button id="btn-refresh" onclick="loadAdminData()">↻ Refresh</button>
     <span class="last-updated" id="last-updated"></span>
   </div>
-
   <div class="stats-grid">
     <div class="stat-card">
       <div class="num" id="stat-total">—</div>
@@ -654,7 +628,6 @@
       <div class="lbl">Selisih Teratas</div>
     </div>
   </div>
-
   <div class="bar-section">
     <h3>Perolehan Suara</h3>
     <div class="bar-row">
@@ -673,7 +646,6 @@
       <div class="bar-count" id="count3">0</div>
     </div>
   </div>
-
   <p class="admin-note">
     Data diambil langsung dari Google Sheets. Klik <strong>Refresh</strong> untuk memperbarui.<br>
     Untuk data lengkap per kelas/semester, buka Google Sheets secara langsung.
@@ -687,32 +659,46 @@
 const CONFIG = {
   APPS_SCRIPT_URL: "https://script.google.com/macros/s/AKfycbzqO3TSnqGCu7dCOcUwK7YCRuPN1VJROn1-rKYrvlSTF4mlUkvJ3tpuxct3IpQkqiRMDQ/exec",
   ADMIN_PASSWORD: "dema2026",
+
   CANDIDATES: [
-    { name: "Muslih Shobir", detail: "Calon 1" },
-    { name: "Alim Nur", detail: "Calon 2" },
-    { name: "Fathi Syauqi", detail: "Calon 3" },
+    {
+      name: "Muslih Shobir",
+      photo: "https://via.placeholder.com/150?text=Calon+1", // ← ganti URL foto
+    },
+    {
+      name: "Alim Nur",
+      photo: "https://via.placeholder.com/150?text=Calon+2", // ← ganti URL foto
+    },
+    {
+      name: "Fathi Syauqi",
+      photo: "https://via.placeholder.com/150?text=Calon+3", // ← ganti URL foto
+    },
   ],
-  CLASSES: ["Ma'had", "PBA A", "PBA B", "KPI", "MPI", "PAI"],
+
+  // Semester Ma'had → kelas A–G. Lainnya → kelas prodi.
   SEMESTERS: ["Ma'had", "2", "4", "6", "8"],
+  CLASSES_MAHAD: ["A", "B", "C", "D", "E", "F", "G"],
+  CLASSES_PRODI: ["PBA", "KPI", "MPI", "PAI"],
 };
 // ════════════════════════════════════════
 
-// ── Init nama calon ──
+// ── Init calon ──
 CONFIG.CANDIDATES.forEach((c, i) => {
   document.getElementById(`cname${i+1}`).textContent = c.name;
-  document.getElementById(`cdetail${i+1}`).textContent = c.detail;
+  document.getElementById(`photo${i+1}`).src = c.photo;
+  const lbl = document.getElementById(`blabel${i+1}`);
+  if (lbl) lbl.textContent = c.name;
 });
 
-// Update admin bar labels with candidate names
-CONFIG.CANDIDATES.forEach((c, i) => {
-  const el = document.getElementById(`blabel${i+1}`);
-  if (el) el.textContent = c.name;
-});
-
-// ── Build chip grids ──
-let selectedKelas = "";
+// ── State ──
 let selectedSemester = "";
+let selectedKelas    = "";
+let currentSemester  = "";
+let currentKelas     = "";
+let selectedCandidate = null;
+let isSubmitting     = false;
 
+// ── Chip builder ──
 function buildChips(containerId, items, onSelect, getSelected) {
   const container = document.getElementById(containerId);
   container.innerHTML = "";
@@ -722,24 +708,32 @@ function buildChips(containerId, items, onSelect, getSelected) {
     btn.textContent = item;
     btn.onclick = () => {
       onSelect(item);
-      // Re-render active state
-      container.querySelectorAll(".chip").forEach(c => {
-        c.classList.toggle("active", c.textContent === getSelected());
-      });
+      container.querySelectorAll(".chip").forEach(c =>
+        c.classList.toggle("active", c.textContent === getSelected())
+      );
     };
     container.appendChild(btn);
   });
 }
 
-buildChips("chip-kelas",    CONFIG.CLASSES,   v => { selectedKelas = v; },    () => selectedKelas);
-buildChips("chip-semester", CONFIG.SEMESTERS, v => { selectedSemester = v; }, () => selectedSemester);
+// Build semester chips (always shown)
+buildChips("chip-semester", CONFIG.SEMESTERS,
+  v => {
+    selectedSemester = v;
+    selectedKelas = ""; // reset kelas on semester change
+    // Show kelas field with appropriate options
+    const isMahad = v === "Ma'had";
+    buildChips("chip-kelas",
+      isMahad ? CONFIG.CLASSES_MAHAD : CONFIG.CLASSES_PRODI,
+      kv => { selectedKelas = kv; },
+      () => selectedKelas
+    );
+    document.getElementById("field-kelas").style.display = "block";
+  },
+  () => selectedSemester
+);
 
-// ── State ──
-let selectedCandidate = null;
-let currentKelas = "";
-let currentSemester = "";
-
-// ── Screen navigation ──
+// ── Screen nav ──
 function showScreen(id) {
   document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
   const el = document.getElementById(id);
@@ -749,37 +743,31 @@ function showScreen(id) {
 // ── FORM → VOTE ──
 function goToVote() {
   const errEl = document.getElementById("form-error");
-  if (!selectedKelas || !selectedSemester) {
-    errEl.textContent = "Pilih kelas dan semester terlebih dahulu.";
+  if (!selectedSemester || !selectedKelas) {
+    errEl.textContent = "Pilih semester dan kelas terlebih dahulu.";
     return;
   }
   errEl.textContent = "";
-  currentKelas = selectedKelas;
-  currentSemester = selectedSemester;
+  currentSemester   = selectedSemester;
+  currentKelas      = selectedKelas;
   selectedCandidate = null;
+  isSubmitting      = false;
 
-  document.getElementById("info-kelas").textContent = currentKelas;
   document.getElementById("info-semester").textContent = currentSemester;
-
-  // Clear any lingering focused state
-  for (let i = 1; i <= 3; i++) document.getElementById(`c${i}`).classList.remove("focused");
+  document.getElementById("info-kelas").textContent    = currentKelas;
 
   showScreen("screen-vote");
   window.focus();
 }
 
-// ── VOTING ──
+// ── VOTING — no visual feedback ──
 function submitCandidate(idx) {
+  if (isSubmitting) return;
+  isSubmitting      = true;
   selectedCandidate = idx;
-  // Brief visual flash
-  for (let i = 0; i < 3; i++) {
-    document.getElementById(`c${i+1}`).classList.toggle("focused", i === idx);
-  }
-  // Small delay so user sees the highlight before screen changes
-  setTimeout(() => submitVote(), 0); /* Jeda animasi, asalnya 120*/
+  submitVote();
 }
 
-// Keyboard controls
 document.addEventListener("keydown", e => {
   if (!document.getElementById("screen-vote").classList.contains("active")) return;
   if (e.key === "ArrowLeft")  { e.preventDefault(); submitCandidate(0); }
@@ -787,26 +775,28 @@ document.addEventListener("keydown", e => {
   if (e.key === "ArrowRight") { e.preventDefault(); submitCandidate(2); }
 });
 
+// Clicking the number boxes also works
+document.getElementById("c1").addEventListener("click", () => submitCandidate(0));
+document.getElementById("c2").addEventListener("click", () => submitCandidate(1));
+document.getElementById("c3").addEventListener("click", () => submitCandidate(2));
+
 // ── SUBMIT ──
 async function submitVote() {
   if (selectedCandidate === null) return;
-
   const voteData = {
-    kelas: currentKelas,
-    semester: currentSemester,
-    calon: selectedCandidate + 1,
+    kelas:     currentKelas,
+    semester:  currentSemester,
+    calon:     selectedCandidate + 1,
     calonName: CONFIG.CANDIDATES[selectedCandidate].name,
     timestamp: new Date().toISOString(),
   };
-
   showScreen("screen-submitting");
-
   try {
     const params = new URLSearchParams({
-      action: "vote",
-      kelas: voteData.kelas,
-      semester: voteData.semester,
-      calon: voteData.calon,
+      action:    "vote",
+      kelas:     voteData.kelas,
+      semester:  voteData.semester,
+      calon:     voteData.calon,
       calonName: voteData.calonName,
       timestamp: voteData.timestamp,
     });
@@ -816,6 +806,7 @@ async function submitVote() {
     showScreen("screen-done");
   } catch (err) {
     console.error(err);
+    isSubmitting = false;
     document.getElementById("error-msg").textContent =
       "Gagal mengirim data. Periksa koneksi internet dan coba lagi.";
     showScreen("screen-error");
@@ -824,13 +815,14 @@ async function submitVote() {
 
 // ── RESET ──
 function resetApp() {
+  selectedSemester  = "";
+  selectedKelas     = "";
+  currentSemester   = "";
+  currentKelas      = "";
   selectedCandidate = null;
-  selectedKelas = "";
-  selectedSemester = "";
-  currentKelas = "";
-  currentSemester = "";
-  // Clear chip selections
+  isSubmitting      = false;
   document.querySelectorAll(".chip").forEach(c => c.classList.remove("active"));
+  document.getElementById("field-kelas").style.display = "none";
   document.getElementById("form-error").textContent = "";
   showScreen("screen-form");
 }
@@ -840,12 +832,7 @@ function resetApp() {
 // ════════════════════════════════════════
 function routeAdmin() {
   if (window.location.hash !== "#admin") return;
-
-  // Hide all voting screens
-  document.querySelectorAll(".screen").forEach(s => {
-    s.style.display = "none";
-  });
-
+  document.querySelectorAll(".screen").forEach(s => { s.style.display = "none"; });
   const stored = sessionStorage.getItem("admin_auth");
   if (stored === CONFIG.ADMIN_PASSWORD) {
     document.getElementById("admin-page").classList.add("active");
@@ -857,35 +844,32 @@ function routeAdmin() {
 
 function adminLogin() {
   const pass = document.getElementById("admin-pass").value;
-  const errEl = document.getElementById("admin-login-error");
   if (pass === CONFIG.ADMIN_PASSWORD) {
     sessionStorage.setItem("admin_auth", pass);
     document.getElementById("admin-login").classList.remove("active");
     document.getElementById("admin-page").classList.add("active");
     loadAdminData();
   } else {
-    errEl.textContent = "Sandi salah.";
+    document.getElementById("admin-login-error").textContent = "Sandi salah.";
   }
 }
 
 async function loadAdminData() {
   document.getElementById("last-updated").textContent = "Memuat…";
   try {
-    const resp = await fetch(`${CONFIG.APPS_SCRIPT_URL}?action=stats`);
-    const data = await resp.json();
-
+    const resp  = await fetch(`${CONFIG.APPS_SCRIPT_URL}?action=stats`);
+    const data  = await resp.json();
     const counts = data.counts || [0, 0, 0];
-    const total = counts.reduce((a, b) => a + b, 0);
-    const max = Math.max(...counts, 1);
+    const total  = counts.reduce((a, b) => a + b, 0);
     const leadIdx = counts.indexOf(Math.max(...counts));
 
-    document.getElementById("stat-total").textContent = total;
+    document.getElementById("stat-total").textContent   = total;
     document.getElementById("stat-leading").textContent = CONFIG.CANDIDATES[leadIdx]?.name || `No. ${leadIdx + 1}`;
     const sorted = [...counts].sort((a, b) => b - a);
     document.getElementById("stat-gap").textContent = sorted[0] - (sorted[1] || 0);
 
-    ["bar1", "bar2", "bar3"].forEach((id, i) => {
-      const pct = total > 0 ? ((counts[i] / total) * 100).toFixed(1) : 0;
+    ["bar1","bar2","bar3"].forEach((id, i) => {
+      const pct  = total > 0 ? ((counts[i] / total) * 100).toFixed(1) : 0;
       const fill = document.getElementById(id);
       fill.style.width = pct + "%";
       fill.textContent = pct > 8 ? pct + "%" : "";
