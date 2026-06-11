@@ -13,8 +13,9 @@
       --bg: #080D14;
       --surface: #0E1624;
       --border: #1C2C42;
-      --gold: #4A9EE8;
-      --gold-dim: rgba(74, 158, 232, 0.12);
+      --blue: #4A9EE8;
+      --blue-dim: rgba(74, 158, 232, 0.12);
+      --blue-mid: rgba(74, 158, 232, 0.25);
       --text: #EEF4FF;
       --text-dim: #6B8BAD;
       --success: #4CAF7D;
@@ -30,13 +31,12 @@
     }
 
     /* ── SCREEN SYSTEM ── */
-    .screen {
-      display: none;
-      min-height: 100vh;
-    }
+    .screen { display: none; min-height: 100vh; }
     .screen.active { display: flex; }
 
-    /* ── SCREEN 1: FORM ── */
+    /* ══════════════════════════════════
+       SCREEN 1: FORM
+    ══════════════════════════════════ */
     #screen-form {
       flex-direction: column;
       align-items: center;
@@ -46,20 +46,19 @@
 
     .form-header {
       text-align: center;
-      margin-bottom: 2.5rem;
+      margin-bottom: 2rem;
     }
     .form-header .label {
       font-size: 0.7rem;
       font-weight: 600;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 0.6rem;
+      color: var(--blue);
+      margin-bottom: 0.5rem;
     }
     .form-header h1 {
       font-size: clamp(1.4rem, 4vw, 2rem);
       font-weight: 700;
-      line-height: 1.2;
     }
     .form-header p {
       margin-top: 0.4rem;
@@ -69,64 +68,67 @@
 
     .form-card {
       width: 100%;
-      max-width: 400px;
+      max-width: 440px;
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 2rem;
+      padding: 1.75rem;
     }
 
-    .field {
-      margin-bottom: 1.2rem;
-    }
+    .field { margin-bottom: 1.4rem; }
     .field label {
       display: block;
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       font-weight: 600;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--text-dim);
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.6rem;
     }
-    .field select {
-      width: 100%;
+
+    /* ── CHIP GRID (replaces dropdowns) ── */
+    .chip-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .chip {
+      padding: 0.45rem 0.9rem;
       background: var(--bg);
       border: 1px solid var(--border);
-      border-radius: 8px;
-      color: var(--text);
+      border-radius: 6px;
+      color: var(--text-dim);
       font-family: 'Inter', sans-serif;
-      font-size: 0.95rem;
-      padding: 0.75rem 1rem;
-      appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 1rem center;
+      font-size: 0.85rem;
+      font-weight: 600;
       cursor: pointer;
-      transition: border-color 0.2s;
+      transition: all 0.15s;
+      user-select: none;
     }
-    .field select:focus {
-      outline: none;
-      border-color: var(--gold);
+    .chip:hover { border-color: var(--blue); color: var(--text); }
+    .chip.active {
+      background: var(--blue-dim);
+      border-color: var(--blue);
+      color: var(--blue);
     }
-    .field select option { background: #0E1624; }
 
     .btn-primary {
       width: 100%;
-      background: var(--gold);
-      color: #0F0F0F;
+      background: var(--blue);
+      color: #080D14;
       border: none;
       border-radius: 8px;
       font-family: 'Inter', sans-serif;
       font-size: 0.9rem;
       font-weight: 700;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.04em;
       padding: 0.85rem;
       cursor: pointer;
       transition: opacity 0.2s;
-      margin-top: 0.5rem;
+      margin-top: 0.25rem;
     }
     .btn-primary:hover { opacity: 0.88; }
-    .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
+    .btn-primary:disabled { opacity: 0.35; cursor: not-allowed; }
 
     #form-error {
       color: var(--error);
@@ -136,46 +138,30 @@
       min-height: 1.2em;
     }
 
-    /* ── SCREEN 2: VOTING ── */
-    #screen-vote {
-      flex-direction: column;
-    }
+    /* ══════════════════════════════════
+       SCREEN 2: VOTING
+    ══════════════════════════════════ */
+    #screen-vote { flex-direction: column; }
 
     .vote-header {
-      padding: 1rem 1.5rem;
+      padding: 0.9rem 1.5rem;
       border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: space-between;
       flex-shrink: 0;
     }
-    .vote-header .meta {
-      font-size: 0.75rem;
-      color: var(--text-dim);
-    }
-    .vote-header .meta span {
-      color: var(--text);
-      font-weight: 600;
-    }
-    .vote-header .hint {
-      font-size: 0.7rem;
-      color: var(--text-dim);
-      text-align: right;
-    }
+    .vote-header .meta { font-size: 0.75rem; color: var(--text-dim); }
+    .vote-header .meta span { color: var(--text); font-weight: 600; }
+    .vote-header .hint { font-size: 0.7rem; color: var(--text-dim); }
 
     .vote-instruction {
       text-align: center;
-      padding: 1.2rem 1rem 0.8rem;
+      padding: 1rem 1rem 0.6rem;
       flex-shrink: 0;
     }
-    .vote-instruction p {
-      font-size: 0.8rem;
-      color: var(--text-dim);
-      letter-spacing: 0.03em;
-    }
-    .vote-instruction strong {
-      color: var(--gold);
-    }
+    .vote-instruction p { font-size: 0.8rem; color: var(--text-dim); }
+    .vote-instruction strong { color: var(--blue); }
 
     .candidates-area {
       flex: 1;
@@ -194,32 +180,22 @@
       justify-content: center;
       padding: 1.5rem 1rem;
       cursor: pointer;
-      transition: background 0.15s;
+      transition: background 0.12s;
       position: relative;
       user-select: none;
       min-height: 260px;
     }
-    .candidate:hover,
+    .candidate:hover { background: var(--blue-dim); }
     .candidate.focused {
-      background: var(--gold-dim);
-    }
-    .candidate.focused {
-      outline: 2px solid var(--gold);
+      background: var(--blue-dim);
+      outline: 2px solid var(--blue);
       outline-offset: -2px;
       z-index: 1;
-    }
-    .candidate.selected {
-      background: var(--gold-dim);
     }
 
     .candidate .key-hint {
       position: absolute;
       top: 1rem;
-      font-size: 0.65rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--text-dim);
       display: flex;
       align-items: center;
       gap: 0.3rem;
@@ -240,14 +216,12 @@
       font-size: clamp(4rem, 10vw, 7rem);
       font-weight: 900;
       line-height: 1;
-      color: var(--gold);
+      color: var(--blue);
       letter-spacing: -0.03em;
       transition: transform 0.1s;
     }
-    .candidate.focused .number,
-    .candidate:hover .number {
-      transform: scale(1.05);
-    }
+    .candidate:hover .number,
+    .candidate.focused .number { transform: scale(1.05); }
 
     .candidate .name {
       font-size: clamp(0.75rem, 1.5vw, 0.9rem);
@@ -255,15 +229,17 @@
       text-align: center;
       margin-top: 0.6rem;
       color: var(--text);
-      letter-spacing: 0.02em;
     }
-    .candidate .position-hint {
+    .candidate .detail {
       font-size: 0.65rem;
       color: var(--text-dim);
       margin-top: 0.2rem;
+      text-align: center;
     }
 
-    /* ── SCREEN 3: SUBMITTING ── */
+    /* ══════════════════════════════════
+       SCREEN 3: SUBMITTING
+    ══════════════════════════════════ */
     #screen-submitting {
       flex-direction: column;
       align-items: center;
@@ -271,68 +247,65 @@
       gap: 1rem;
     }
     .spinner {
-      width: 36px;
-      height: 36px;
+      width: 36px; height: 36px;
       border: 3px solid var(--border);
-      border-top-color: var(--gold);
+      border-top-color: var(--blue);
       border-radius: 50%;
       animation: spin 0.8s linear infinite;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
     #screen-submitting p { font-size: 0.9rem; color: var(--text-dim); }
 
-    /* ── SCREEN 4: DONE ── */
+    /* ══════════════════════════════════
+       SCREEN 4: DONE
+    ══════════════════════════════════ */
     #screen-done {
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
       padding: 2rem;
-      gap: 0.8rem;
+      gap: 0.75rem;
     }
     .done-icon {
-      width: 56px;
-      height: 56px;
+      width: 64px; height: 64px;
       border-radius: 50%;
-      background: rgba(76, 175, 125, 0.15);
+      background: rgba(76, 175, 125, 0.12);
+      border: 1px solid rgba(76, 175, 125, 0.3);
       display: flex;
       align-items: center;
       justify-content: center;
       margin-bottom: 0.5rem;
     }
-    .done-icon svg { width: 28px; height: 28px; }
-    #screen-done h2 {
-      font-size: 1.4rem;
-      font-weight: 700;
-    }
-    #screen-done p {
-      font-size: 0.85rem;
-      color: var(--text-dim);
-      max-width: 280px;
-    }
+    .done-icon svg { width: 30px; height: 30px; }
+    #screen-done h2 { font-size: 1.5rem; font-weight: 700; }
+    #screen-done p { font-size: 0.9rem; color: var(--text-dim); max-width: 280px; line-height: 1.6; }
     #btn-next {
-      margin-top: 1rem;
-      padding: 0.75rem 2.5rem;
-      background: var(--gold);
-      color: #0F0F0F;
+      margin-top: 1.25rem;
+      padding: 0.8rem 2.8rem;
+      background: var(--blue);
+      color: #080D14;
       border: none;
       border-radius: 8px;
       font-family: 'Inter', sans-serif;
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       font-weight: 700;
       cursor: pointer;
       letter-spacing: 0.04em;
+      transition: opacity 0.2s;
     }
     #btn-next:hover { opacity: 0.85; }
 
-    /* ── SCREEN 5: ERROR ── */
+    /* ══════════════════════════════════
+       SCREEN 5: ERROR
+    ══════════════════════════════════ */
     #screen-error {
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
       padding: 2rem;
-      gap: 0.8rem;
+      gap: 0.75rem;
     }
     #screen-error h2 { color: var(--error); font-size: 1.2rem; }
     #screen-error p { font-size: 0.85rem; color: var(--text-dim); max-width: 300px; }
@@ -340,8 +313,8 @@
       margin-top: 1rem;
       padding: 0.7rem 2rem;
       background: transparent;
-      color: var(--gold);
-      border: 1px solid var(--gold);
+      color: var(--blue);
+      border: 1px solid var(--blue);
       border-radius: 8px;
       font-family: 'Inter', sans-serif;
       font-size: 0.85rem;
@@ -349,7 +322,61 @@
       cursor: pointer;
     }
 
-    /* ── ADMIN PAGE ── */
+    /* ══════════════════════════════════
+       ADMIN LOGIN
+    ══════════════════════════════════ */
+    #admin-login {
+      display: none;
+      min-height: 100vh;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      gap: 0;
+    }
+    #admin-login.active { display: flex; }
+    #admin-login .label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 0.5rem;
+    }
+    #admin-login h2 { font-size: 1.3rem; font-weight: 700; margin-bottom: 1.75rem; }
+    #admin-pass {
+      width: 280px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      padding: 0.75rem 1rem;
+      text-align: center;
+      letter-spacing: 0.15em;
+      margin-bottom: 0.75rem;
+    }
+    #admin-pass:focus { outline: none; border-color: var(--blue); }
+    #btn-admin-login {
+      width: 280px;
+      padding: 0.75rem;
+      background: var(--blue);
+      color: #080D14;
+      border: none;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    #btn-admin-login:hover { opacity: 0.88; }
+    #admin-login-error { font-size: 0.8rem; color: var(--error); margin-top: 0.6rem; min-height: 1.2em; }
+
+    /* ══════════════════════════════════
+       ADMIN DASHBOARD
+    ══════════════════════════════════ */
     #admin-page {
       display: none;
       min-height: 100vh;
@@ -357,22 +384,42 @@
       padding: 2rem;
       max-width: 800px;
       margin: 0 auto;
+      width: 100%;
     }
     #admin-page.active { display: flex; }
 
-    .admin-header {
-      margin-bottom: 2rem;
-    }
+    .admin-header { margin-bottom: 1.75rem; }
     .admin-header .label {
       font-size: 0.7rem;
       font-weight: 600;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--gold);
+      color: var(--blue);
       margin-bottom: 0.4rem;
     }
     .admin-header h1 { font-size: 1.5rem; font-weight: 700; }
     .admin-header p { font-size: 0.8rem; color: var(--text-dim); margin-top: 0.3rem; }
+
+    .admin-refresh {
+      display: flex;
+      gap: 0.8rem;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    #btn-refresh {
+      padding: 0.5rem 1.1rem;
+      background: transparent;
+      color: var(--blue);
+      border: 1px solid var(--blue);
+      border-radius: 7px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    #btn-refresh:hover { background: var(--blue-dim); }
+    .last-updated { font-size: 0.75rem; color: var(--text-dim); }
 
     .stats-grid {
       display: grid;
@@ -385,17 +432,17 @@
     }
     .stat-card {
       background: var(--surface);
-      padding: 1.5rem;
+      padding: 1.4rem;
       text-align: center;
     }
     .stat-card .num {
-      font-size: 2.5rem;
+      font-size: 2.4rem;
       font-weight: 900;
-      color: var(--gold);
+      color: var(--blue);
       line-height: 1;
     }
     .stat-card .lbl {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       color: var(--text-dim);
       margin-top: 0.3rem;
     }
@@ -408,7 +455,7 @@
       margin-bottom: 1.5rem;
     }
     .bar-section h3 {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 600;
       letter-spacing: 0.1em;
       text-transform: uppercase;
@@ -422,12 +469,7 @@
       margin-bottom: 1rem;
     }
     .bar-row:last-child { margin-bottom: 0; }
-    .bar-label {
-      width: 80px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      flex-shrink: 0;
-    }
+    .bar-label { width: 80px; font-size: 0.8rem; font-weight: 600; flex-shrink: 0; }
     .bar-track {
       flex: 1;
       height: 28px;
@@ -437,7 +479,7 @@
     }
     .bar-fill {
       height: 100%;
-      background: var(--gold);
+      background: var(--blue);
       border-radius: 4px;
       transition: width 0.6s ease;
       display: flex;
@@ -447,6 +489,7 @@
       font-weight: 700;
       color: #080D14;
       min-width: 0;
+      white-space: nowrap;
     }
     .bar-count {
       font-size: 0.8rem;
@@ -457,26 +500,6 @@
       flex-shrink: 0;
     }
 
-    .admin-refresh {
-      display: flex;
-      gap: 0.8rem;
-      align-items: center;
-      margin-bottom: 2rem;
-    }
-    #btn-refresh {
-      padding: 0.55rem 1.2rem;
-      background: transparent;
-      color: var(--gold);
-      border: 1px solid var(--gold);
-      border-radius: 7px;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.8rem;
-      font-weight: 600;
-      cursor: pointer;
-    }
-    #btn-refresh:hover { background: var(--gold-dim); }
-    .last-updated { font-size: 0.75rem; color: var(--text-dim); }
-
     .admin-note {
       font-size: 0.75rem;
       color: var(--text-dim);
@@ -485,47 +508,7 @@
       padding-top: 1rem;
     }
 
-    /* Admin login */
-    #admin-login {
-      display: none;
-      min-height: 100vh;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
-    }
-    #admin-login.active { display: flex; }
-    #admin-login h2 { font-size: 1.2rem; margin-bottom: 1.5rem; }
-    #admin-login input {
-      width: 280px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      color: var(--text);
-      font-family: 'Inter', sans-serif;
-      font-size: 0.95rem;
-      padding: 0.75rem 1rem;
-      text-align: center;
-      letter-spacing: 0.2em;
-      margin-bottom: 0.8rem;
-    }
-    #admin-login input:focus { outline: none; border-color: var(--gold); }
-    #btn-admin-login {
-      width: 280px;
-      padding: 0.75rem;
-      background: var(--gold);
-      color: #0F0F0F;
-      border: none;
-      border-radius: 8px;
-      font-family: 'Inter', sans-serif;
-      font-weight: 700;
-      font-size: 0.9rem;
-      cursor: pointer;
-    }
-    #admin-login-error { font-size: 0.8rem; color: var(--error); margin-top: 0.5rem; min-height: 1em; }
-
     @media (max-width: 500px) {
-      .candidates-area { grid-template-columns: repeat(3, 1fr); }
       .candidate .number { font-size: 3rem; }
       .key-hint { display: none; }
       .stats-grid { grid-template-columns: 1fr; }
@@ -535,53 +518,37 @@
 <body>
 
 <!-- ══════════════════════════════════
-     VOTING SCREENS
-═══════════════════════════════════ -->
-
-<!-- SCREEN 1: FORM INPUT -->
+     SCREEN 1: FORM INPUT
+══════════════════════════════════ -->
 <div id="screen-form" class="screen active">
   <div class="form-header">
     <div class="label">Pemilihan Ketua</div>
-    <h1>DEMA KPI</h1>
-    <p>Isi data berikut untuk melanjutkan</p>
+    <h1>DEMA IMC</h1>
+    <p>Pilih kelas dan semester untuk melanjutkan</p>
   </div>
   <div class="form-card">
     <div class="field">
-      <label for="sel-kelas">Kelas</label>
-      <select id="sel-kelas">
-        <option value="">— Pilih kelas —</option>
-        <option>KPI A</option>
-        <option>KPI B</option>
-        <option>KPI C</option>
-        <option>KPI D</option>
-      </select>
+      <label>Kelas</label>
+      <div class="chip-grid" id="chip-kelas"></div>
     </div>
     <div class="field">
-      <label for="sel-semester">Semester</label>
-      <select id="sel-semester">
-        <option value="">— Pilih semester —</option>
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-        <option>5</option>
-        <option>6</option>
-        <option>7</option>
-        <option>8</option>
-      </select>
+      <label>Semester</label>
+      <div class="chip-grid" id="chip-semester"></div>
     </div>
-    <button class="btn-primary" id="btn-to-vote" onclick="goToVote()">Lanjutkan</button>
+    <button class="btn-primary" id="btn-to-vote" onclick="goToVote()">Lanjutkan →</button>
     <div id="form-error"></div>
   </div>
 </div>
 
-<!-- SCREEN 2: VOTING -->
+<!-- ══════════════════════════════════
+     SCREEN 2: VOTING
+══════════════════════════════════ -->
 <div id="screen-vote" class="screen">
   <div class="vote-header">
     <div class="meta">
       Kelas: <span id="info-kelas">—</span> &nbsp;·&nbsp; Semester: <span id="info-semester">—</span>
     </div>
-    <div class="hint">← Kiri &nbsp; ↓ Tengah &nbsp; → Kanan</div>
+    <div class="hint">← Kiri &nbsp;·&nbsp; ↓ Tengah &nbsp;·&nbsp; → Kanan</div>
   </div>
   <div class="vote-instruction">
     <p>Tekan <strong>← ↓ →</strong> untuk langsung memilih</p>
@@ -590,43 +557,49 @@
     <div class="candidate" id="c1" onclick="submitCandidate(0)">
       <div class="key-hint"><span class="key-badge">←</span></div>
       <div class="number">1</div>
-      <div class="name">Calon 1</div>
-      <div class="position-hint">Nama Lengkap</div>
+      <div class="name" id="cname1">—</div>
+      <div class="detail" id="cdetail1">—</div>
     </div>
     <div class="candidate" id="c2" onclick="submitCandidate(1)">
       <div class="key-hint"><span class="key-badge">↓</span></div>
       <div class="number">2</div>
-      <div class="name">Calon 2</div>
-      <div class="position-hint">Nama Lengkap</div>
+      <div class="name" id="cname2">—</div>
+      <div class="detail" id="cdetail2">—</div>
     </div>
     <div class="candidate" id="c3" onclick="submitCandidate(2)">
       <div class="key-hint"><span class="key-badge">→</span></div>
       <div class="number">3</div>
-      <div class="name">Calon 3</div>
-      <div class="position-hint">Nama Lengkap</div>
+      <div class="name" id="cname3">—</div>
+      <div class="detail" id="cdetail3">—</div>
     </div>
   </div>
+</div>
 
-
-<!-- SCREEN 3: SUBMITTING -->
+<!-- ══════════════════════════════════
+     SCREEN 3: SUBMITTING
+══════════════════════════════════ -->
 <div id="screen-submitting" class="screen">
   <div class="spinner"></div>
   <p>Menyimpan suara…</p>
 </div>
 
-<!-- SCREEN 4: DONE -->
+<!-- ══════════════════════════════════
+     SCREEN 4: DONE
+══════════════════════════════════ -->
 <div id="screen-done" class="screen">
   <div class="done-icon">
-    <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M5 14l6 6 12-12" stroke="#4CAF7D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <svg viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M6 15l6 6 12-12" stroke="#4CAF7D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   </div>
   <h2>Suara Tercatat</h2>
-  <p>Terima kasih. Pilihan Anda telah disimpan dengan aman.</p>
+  <p>Terima kasih sudah menggunakan hak pilihmu. Suaramu telah disimpan dengan aman.</p>
   <button id="btn-next" onclick="resetApp()">Pemilih Berikutnya</button>
 </div>
 
-<!-- SCREEN 5: ERROR -->
+<!-- ══════════════════════════════════
+     SCREEN 5: ERROR
+══════════════════════════════════ -->
 <div id="screen-error" class="screen">
   <h2>Gagal Menyimpan</h2>
   <p id="error-msg">Terjadi kesalahan. Pastikan koneksi internet tersambung dan coba lagi.</p>
@@ -634,16 +607,20 @@
 </div>
 
 <!-- ══════════════════════════════════
-     ADMIN PAGES
-═══════════════════════════════════ -->
-
+     ADMIN LOGIN
+══════════════════════════════════ -->
 <div id="admin-login">
+  <div class="label">Dashboard Panitia</div>
   <h2>Masuk sebagai Panitia</h2>
-  <input type="password" id="admin-pass" placeholder="Sandi" onkeydown="if(event.key==='Enter')adminLogin()" />
+  <input type="password" id="admin-pass" placeholder="Sandi"
+    onkeydown="if(event.key==='Enter') adminLogin()" />
   <button id="btn-admin-login" onclick="adminLogin()">Masuk</button>
   <div id="admin-login-error"></div>
 </div>
 
+<!-- ══════════════════════════════════
+     ADMIN DASHBOARD
+══════════════════════════════════ -->
 <div id="admin-page">
   <div class="admin-header">
     <div class="label">Dashboard Panitia</div>
@@ -674,24 +651,24 @@
   <div class="bar-section">
     <h3>Perolehan Suara</h3>
     <div class="bar-row">
-      <div class="bar-label">Calon 1</div>
+      <div class="bar-label" id="blabel1">Calon 1</div>
       <div class="bar-track"><div class="bar-fill" id="bar1" style="width:0%"></div></div>
       <div class="bar-count" id="count1">0</div>
     </div>
     <div class="bar-row">
-      <div class="bar-label">Calon 2</div>
+      <div class="bar-label" id="blabel2">Calon 2</div>
       <div class="bar-track"><div class="bar-fill" id="bar2" style="width:0%"></div></div>
       <div class="bar-count" id="count2">0</div>
     </div>
     <div class="bar-row">
-      <div class="bar-label">Calon 3</div>
+      <div class="bar-label" id="blabel3">Calon 3</div>
       <div class="bar-track"><div class="bar-fill" id="bar3" style="width:0%"></div></div>
       <div class="bar-count" id="count3">0</div>
     </div>
   </div>
 
   <p class="admin-note">
-    Data ini diambil langsung dari Google Sheets. Klik <strong>Refresh</strong> untuk memperbarui.<br>
+    Data diambil langsung dari Google Sheets. Klik <strong>Refresh</strong> untuk memperbarui.<br>
     Untuk data lengkap per kelas/semester, buka Google Sheets secara langsung.
   </p>
 </div>
@@ -701,96 +678,106 @@
 // KONFIGURASI — EDIT BAGIAN INI
 // ════════════════════════════════════════
 const CONFIG = {
-  // Tempel URL Google Apps Script Web App di sini:
   APPS_SCRIPT_URL: "https://script.google.com/macros/s/AKfycbzqO3TSnqGCu7dCOcUwK7YCRuPN1VJROn1-rKYrvlSTF4mlUkvJ3tpuxct3IpQkqiRMDQ/exec",
-
-  // Sandi untuk halaman admin (ganti sebelum deploy):
   ADMIN_PASSWORD: "dema2026",
-
-  // Nama calon (ganti sesuai nama asli):
   CANDIDATES: [
     { name: "Calon 1", detail: "Muslih Shobir" },
     { name: "Calon 2", detail: "Alim Nur" },
     { name: "Calon 3", detail: "Syauqi" },
   ],
-
-  // Opsi kelas (tambah/hapus sesuai kebutuhan):
-  CLASSES: ["PBA A", "PBA B", "KPI", "KPI", "MPI", "PAI"],
+  CLASSES: ["PBA A", "PBA B", "KPI A", "KPI B", "MPI", "PAI"],
+  SEMESTERS: ["1", "2", "3", "4", "5", "6", "7", "8"],
 };
 // ════════════════════════════════════════
 
-// Init nama calon ke DOM
+// ── Init nama calon ──
 CONFIG.CANDIDATES.forEach((c, i) => {
-  const el = document.getElementById(`c${i+1}`);
-  if (el) {
-    el.querySelector('.name').textContent = c.name;
-    el.querySelector('.position-hint').textContent = c.detail;
-  }
+  document.getElementById(`cname${i+1}`).textContent = c.name;
+  document.getElementById(`cdetail${i+1}`).textContent = c.detail;
 });
 
-// Init kelas dropdown
-const kelasEl = document.getElementById('sel-kelas');
-kelasEl.innerHTML = '<option value="">— Pilih kelas —</option>';
-CONFIG.CLASSES.forEach(k => {
-  const o = document.createElement('option');
-  o.textContent = k;
-  kelasEl.appendChild(o);
+// Update admin bar labels with candidate names
+CONFIG.CANDIDATES.forEach((c, i) => {
+  const el = document.getElementById(`blabel${i+1}`);
+  if (el) el.textContent = c.name;
 });
+
+// ── Build chip grids ──
+let selectedKelas = "";
+let selectedSemester = "";
+
+function buildChips(containerId, items, onSelect, getSelected) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = "";
+  items.forEach(item => {
+    const btn = document.createElement("button");
+    btn.className = "chip";
+    btn.textContent = item;
+    btn.onclick = () => {
+      onSelect(item);
+      // Re-render active state
+      container.querySelectorAll(".chip").forEach(c => {
+        c.classList.toggle("active", c.textContent === getSelected());
+      });
+    };
+    container.appendChild(btn);
+  });
+}
+
+buildChips("chip-kelas",    CONFIG.CLASSES,   v => { selectedKelas = v; },    () => selectedKelas);
+buildChips("chip-semester", CONFIG.SEMESTERS, v => { selectedSemester = v; }, () => selectedSemester);
 
 // ── State ──
-let selectedCandidate = null; // 0-indexed
+let selectedCandidate = null;
 let currentKelas = "";
 let currentSemester = "";
-let lastVoteData = null;
 
 // ── Screen navigation ──
 function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
   const el = document.getElementById(id);
-  if (el) el.classList.add('active');
+  if (el) el.classList.add("active");
 }
 
-// ── FORM ──
+// ── FORM → VOTE ──
 function goToVote() {
-  const kelas = document.getElementById('sel-kelas').value;
-  const sem = document.getElementById('sel-semester').value;
-  const errEl = document.getElementById('form-error');
-
-  if (!kelas || !sem) {
+  const errEl = document.getElementById("form-error");
+  if (!selectedKelas || !selectedSemester) {
     errEl.textContent = "Pilih kelas dan semester terlebih dahulu.";
     return;
   }
   errEl.textContent = "";
-  currentKelas = kelas;
-  currentSemester = sem;
+  currentKelas = selectedKelas;
+  currentSemester = selectedSemester;
   selectedCandidate = null;
 
-  document.getElementById('info-kelas').textContent = kelas;
-  document.getElementById('info-semester').textContent = sem;
-  showScreen('screen-vote');
+  document.getElementById("info-kelas").textContent = currentKelas;
+  document.getElementById("info-semester").textContent = currentSemester;
+
+  // Clear any lingering focused state
+  for (let i = 1; i <= 3; i++) document.getElementById(`c${i}`).classList.remove("focused");
+
+  showScreen("screen-vote");
   window.focus();
 }
 
 // ── VOTING ──
-function selectCandidate(idx) {
-  selectedCandidate = idx;
-  // Flash the selected candidate visually
-  for (let i = 0; i < 3; i++) {
-    document.getElementById(`c${i+1}`).classList.toggle('focused', i === idx);
-  }
-}
-
 function submitCandidate(idx) {
   selectedCandidate = idx;
-  submitVote();
+  // Brief visual flash
+  for (let i = 0; i < 3; i++) {
+    document.getElementById(`c${i+1}`).classList.toggle("focused", i === idx);
+  }
+  // Small delay so user sees the highlight before screen changes
+  setTimeout(() => submitVote(), 120);
 }
 
-// Keyboard controls — each key immediately submits
-document.addEventListener('keydown', e => {
-  if (!document.getElementById('screen-vote').classList.contains('active')) return;
-  if (e.key === 'ArrowLeft')  { e.preventDefault(); submitCandidate(0); }
-  if (e.key === 'ArrowDown')  { e.preventDefault(); submitCandidate(1); }
-  if (e.key === 'ArrowRight') { e.preventDefault(); submitCandidate(2); }
+// Keyboard controls
+document.addEventListener("keydown", e => {
+  if (!document.getElementById("screen-vote").classList.contains("active")) return;
+  if (e.key === "ArrowLeft")  { e.preventDefault(); submitCandidate(0); }
+  if (e.key === "ArrowDown")  { e.preventDefault(); submitCandidate(1); }
+  if (e.key === "ArrowRight") { e.preventDefault(); submitCandidate(2); }
 });
 
 // ── SUBMIT ──
@@ -804,9 +791,8 @@ async function submitVote() {
     calonName: CONFIG.CANDIDATES[selectedCandidate].name,
     timestamp: new Date().toISOString(),
   };
-  lastVoteData = voteData;
 
-  showScreen('screen-submitting');
+  showScreen("screen-submitting");
 
   try {
     const params = new URLSearchParams({
@@ -817,95 +803,98 @@ async function submitVote() {
       calonName: voteData.calonName,
       timestamp: voteData.timestamp,
     });
-    // GET avoids CORS preflight — Apps Script handles it fine
     const resp = await fetch(`${CONFIG.APPS_SCRIPT_URL}?${params}`);
     const json = await resp.json();
     if (json.status !== "ok") throw new Error(json.message || "Unknown error");
-    showScreen('screen-done');
+    showScreen("screen-done");
   } catch (err) {
     console.error(err);
-    document.getElementById('error-msg').textContent =
-      "Gagal mengirim data. Periksa koneksi dan URL Apps Script, lalu coba lagi.";
-    showScreen('screen-error');
+    document.getElementById("error-msg").textContent =
+      "Gagal mengirim data. Periksa koneksi internet dan coba lagi.";
+    showScreen("screen-error");
   }
 }
 
 // ── RESET ──
 function resetApp() {
   selectedCandidate = null;
+  selectedKelas = "";
+  selectedSemester = "";
   currentKelas = "";
   currentSemester = "";
-  document.getElementById('sel-kelas').value = "";
-  document.getElementById('sel-semester').value = "";
-  document.getElementById('form-error').textContent = "";
-  showScreen('screen-form');
+  // Clear chip selections
+  document.querySelectorAll(".chip").forEach(c => c.classList.remove("active"));
+  document.getElementById("form-error").textContent = "";
+  showScreen("screen-form");
 }
 
 // ════════════════════════════════════════
 // ADMIN
 // ════════════════════════════════════════
 function routeAdmin() {
-  const hash = window.location.hash;
-  if (hash === '#admin') {
-    document.querySelectorAll('.screen').forEach(s => { s.style.display = 'none'; });
-    const stored = sessionStorage.getItem('admin_auth');
-    if (stored === CONFIG.ADMIN_PASSWORD) {
-      document.getElementById('admin-page').classList.add('active');
-      loadAdminData();
-    } else {
-      document.getElementById('admin-login').classList.add('active');
-    }
+  if (window.location.hash !== "#admin") return;
+
+  // Hide all voting screens
+  document.querySelectorAll(".screen").forEach(s => {
+    s.style.display = "none";
+  });
+
+  const stored = sessionStorage.getItem("admin_auth");
+  if (stored === CONFIG.ADMIN_PASSWORD) {
+    document.getElementById("admin-page").classList.add("active");
+    loadAdminData();
+  } else {
+    document.getElementById("admin-login").classList.add("active");
   }
 }
 
 function adminLogin() {
-  const pass = document.getElementById('admin-pass').value;
+  const pass = document.getElementById("admin-pass").value;
+  const errEl = document.getElementById("admin-login-error");
   if (pass === CONFIG.ADMIN_PASSWORD) {
-    sessionStorage.setItem('admin_auth', pass);
-    document.getElementById('admin-login').classList.remove('active');
-    document.getElementById('admin-page').classList.add('active');
+    sessionStorage.setItem("admin_auth", pass);
+    document.getElementById("admin-login").classList.remove("active");
+    document.getElementById("admin-page").classList.add("active");
     loadAdminData();
   } else {
-    document.getElementById('admin-login-error').textContent = "Sandi salah.";
+    errEl.textContent = "Sandi salah.";
   }
 }
 
 async function loadAdminData() {
-  document.getElementById('last-updated').textContent = "Memuat…";
+  document.getElementById("last-updated").textContent = "Memuat…";
   try {
-    const url = CONFIG.APPS_SCRIPT_URL + "?action=stats";
-    const resp = await fetch(url);
+    const resp = await fetch(`${CONFIG.APPS_SCRIPT_URL}?action=stats`);
     const data = await resp.json();
 
     const counts = data.counts || [0, 0, 0];
     const total = counts.reduce((a, b) => a + b, 0);
     const max = Math.max(...counts, 1);
-    const leadIdx = counts.indexOf(max);
+    const leadIdx = counts.indexOf(Math.max(...counts));
 
-    document.getElementById('stat-total').textContent = total;
-    document.getElementById('stat-leading').textContent = `No. ${leadIdx + 1}`;
-    const sorted = [...counts].sort((a,b) => b-a);
-    document.getElementById('stat-gap').textContent = sorted[0] - (sorted[1] || 0);
+    document.getElementById("stat-total").textContent = total;
+    document.getElementById("stat-leading").textContent = CONFIG.CANDIDATES[leadIdx]?.name || `No. ${leadIdx + 1}`;
+    const sorted = [...counts].sort((a, b) => b - a);
+    document.getElementById("stat-gap").textContent = sorted[0] - (sorted[1] || 0);
 
-    ['bar1','bar2','bar3'].forEach((id, i) => {
+    ["bar1", "bar2", "bar3"].forEach((id, i) => {
       const pct = total > 0 ? ((counts[i] / total) * 100).toFixed(1) : 0;
       const fill = document.getElementById(id);
-      fill.style.width = pct + '%';
-      fill.textContent = pct > 8 ? pct + '%' : '';
+      fill.style.width = pct + "%";
+      fill.textContent = pct > 8 ? pct + "%" : "";
       document.getElementById(`count${i+1}`).textContent = counts[i];
     });
 
-    document.getElementById('admin-total-label').textContent =
-      `Total ${total} suara masuk · Terakhir diperbarui: ${new Date().toLocaleTimeString('id-ID')}`;
-    document.getElementById('last-updated').textContent =
-      `Diperbarui pukul ${new Date().toLocaleTimeString('id-ID')}`;
-  } catch(e) {
-    document.getElementById('last-updated').textContent = "Gagal memuat data. Periksa URL Apps Script.";
+    const now = new Date().toLocaleTimeString("id-ID");
+    document.getElementById("admin-total-label").textContent =
+      `${total} suara masuk · Diperbarui pukul ${now}`;
+    document.getElementById("last-updated").textContent = `Diperbarui pukul ${now}`;
+  } catch (e) {
+    document.getElementById("last-updated").textContent = "Gagal memuat. Periksa URL Apps Script.";
   }
 }
 
-// Init routing
-window.addEventListener('hashchange', routeAdmin);
+window.addEventListener("hashchange", routeAdmin);
 routeAdmin();
 </script>
 </body>
