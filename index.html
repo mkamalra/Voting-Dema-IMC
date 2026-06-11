@@ -105,17 +105,20 @@
       transition: all 0.15s;
       user-select: none;
     }
-    .chip:hover { border-color: var(--blue); color: var(--text); }
+    .chip:hover { 
+      border-color: var(--border); /* Tetap gunakan warna border normal */
+      color: var(--text-dim);      /* Tetap gunakan warna teks biasa */ 
+    }
     .chip.active {
-      background: var(--blue-dim);
-      border-color: var(--blue);
-      color: var(--blue);
+      background: var(--bg);       /* Hilangkan warna background biru muda */
+      border-color: var(--blue);   /* Jika ingin tandanya tetap ada, biarkan biru. Atau ubah ke var(--border) jika ingin benar-benar polos */
+      color: var(--blue);          /* Warna teks saat dipilih */
     }
 
     .btn-primary {
       width: 100%;
       background: var(--blue);
-      color: #080D14;
+      color: #FFFFFF; /* DIUBAH JADI PUTIH */
       border: none;
       border-radius: 8px;
       font-family: 'Inter', sans-serif;
@@ -187,9 +190,8 @@
     }
     .candidate:hover { background: var(--blue-dim); }
     .candidate.focused {
-      background: var(--blue-dim);
-      outline: 2px solid var(--blue);
-      outline-offset: -2px;
+      background: var(--surface); /* Tetap gunakan warna surface normal */
+      outline: none;              /* Hapus garis biru saat tombol keyboard ditekan */
       z-index: 1;
     }
 
@@ -221,7 +223,7 @@
       transition: transform 0.1s;
     }
     .candidate:hover .number,
-    .candidate.focused .number { transform: scale(1.05); }
+    .candidate.focused .number { transform: scale(1); }
 
     .candidate .name {
       font-size: clamp(0.75rem, 1.5vw, 0.9rem);
@@ -284,7 +286,7 @@
       margin-top: 1.25rem;
       padding: 0.8rem 2.8rem;
       background: var(--blue);
-      color: #080D14;
+      color: #FFFFFF; /* DIUBAH JADI PUTIH */
       border: none;
       border-radius: 8px;
       font-family: 'Inter', sans-serif;
@@ -487,7 +489,7 @@
       padding-left: 0.5rem;
       font-size: 0.7rem;
       font-weight: 700;
-      color: #080D14;
+      color: #FFFFFF;
       min-width: 0;
       white-space: nowrap;
     }
@@ -769,7 +771,7 @@ function submitCandidate(idx) {
     document.getElementById(`c${i+1}`).classList.toggle("focused", i === idx);
   }
   // Small delay so user sees the highlight before screen changes
-  setTimeout(() => submitVote(), 120);
+  setTimeout(() => submitVote(), 0); /* Jeda animasi, asalnya 120*/
 }
 
 // Keyboard controls
